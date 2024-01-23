@@ -235,8 +235,6 @@ class ODHFront {
             }
             content += '</div>';
         }
-        //content += `<textarea id="odh-context" class="odh-sentence">${this.sentence}</textarea>`;
-        content += '<div id="odh-container" class="odh-sentence"></div>';
         return this.popupHeader() + content + this.popupFooter();
     }
 
@@ -246,7 +244,6 @@ class ODHFront {
         <html lang="en">
             <head><meta charset="UTF-8"><title></title>
                 <link rel="stylesheet" href="${root+'fg/css/frame.css'}">
-                <link rel="stylesheet" href="${root+'fg/css/spell.css'}">
             </head>
             <body style="margin:0px;">
             <div class="odh-notes">`;
@@ -270,7 +267,6 @@ class ODHFront {
                 <div id="context">${this.sentence}</div>
                 <div id="monolingual">${monolingual}</div>
                 </div>
-            <script src="${root+'fg/js/spell.js'}"></script>
             <script src="${root+'fg/js/frame.js'}"></script>
             </body>
         </html>`;
