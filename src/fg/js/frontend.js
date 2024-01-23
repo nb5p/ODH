@@ -209,7 +209,7 @@ class ODHFront {
         let image = '';
         let imageclass = '';
         if (services != 'none') {
-            image = (services == 'ankiconnect') ? 'plus.png' : 'cloud.png';
+            image = (services == 'ankiconnect') ? '➕' : '☁️';
             imageclass = await isConnected() ? 'class="odh-addnote"' : 'class="odh-addnote-disabled"';
         }
 
@@ -219,7 +219,7 @@ class ODHFront {
             if (note.audios) {
                 for (const [dindex, audio] of note.audios.entries()) {
                     if (audio)
-                        audiosegment += `<img class="odh-playaudio" data-nindex="${nindex}" data-dindex="${dindex}" src="${chrome.runtime.getURL('fg/img/play.png')}"/>`;
+                        audiosegment += `<span class="odh-playaudio" data-nindex="${nindex}" data-dindex="${dindex}">🔊</span>`;
                 }
             }
             content += `
@@ -230,7 +230,7 @@ class ODHFront {
                     <span class="odh-extra">${note.extrainfo}</span>
                 </div>`;
             for (const [dindex, definition] of note.definitions.entries()) {
-                let button = (services == 'none' || services == '') ? '' : `<img ${imageclass} data-nindex="${nindex}" data-dindex="${dindex}" src="${chrome.runtime.getURL('fg/img/'+ image)}" />`;
+                let button = (services == 'none' || services == '') ? '' : `<span ${imageclass} data-nindex="${nindex}" data-dindex="${dindex}">${image}</span>`;
                 content += `<div class="odh-definition">${button}${definition}</div>`;
             }
             content += '</div>';
@@ -251,22 +251,19 @@ class ODHFront {
 
     popupFooter() {
         let root = chrome.runtime.getURL('/');
-        let services = this.options ? this.options.services : '';
-        let image = (services == 'ankiconnect') ? 'plus.png' : 'cloud.png';
-        let button = chrome.runtime.getURL('fg/img/' + image);
         let monolingual = this.options ? (this.options.monolingual == '1' ? 1 : 0) : 0;
 
         return `
             </div>
-            <div class="icons hidden"">
-                <img id="plus" src="${button}"/>
-                <img id="load" src="${root+'fg/img/load.gif'}"/>
-                <img id="good" src="${root+'fg/img/good.png'}"/>
-                <img id="fail" src="${root+'fg/img/fail.png'}"/>
-                <img id="play" src="${root+'fg/img/play.png'}"/>
+            <div class="icons hidden">
+                <span id="plus">➕</span>
+                <span id="load">🔄</span>
+                <span id="good">✔️</span>
+                <span id="fail">❌</span>
+                <span id="play">🔊</span>
                 <div id="context">${this.sentence}</div>
                 <div id="monolingual">${monolingual}</div>
-                </div>
+            </div>
             <script src="${root+'fg/js/frame.js'}"></script>
             </body>
         </html>`;
